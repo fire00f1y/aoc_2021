@@ -10,7 +10,7 @@ namespace Day1
     {
         private static readonly List<int> Sums = new List<int>();
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var reader = new StreamReader(File.OpenRead("input.txt"));
             var increased = 0;
