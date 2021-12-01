@@ -29,7 +29,7 @@ namespace Day1
             _cursor = 0;
         }
 
-        public bool Summable()
+        public bool Ready()
         {
             return _full;
         }

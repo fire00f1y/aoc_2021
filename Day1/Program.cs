@@ -6,9 +6,9 @@ using System.IO;
 
 namespace Day1
 {
-    class Program
+    internal static class Program
     {
-        private static List<int> sums = new List<int>();
+        private static readonly List<int> Sums = new List<int>();
 
         static void Main(string[] args)
         {
@@ -23,17 +23,17 @@ namespace Day1
                 var num = Convert.ToInt32(line);
                 window.Add(num);
 
-                if (!window.Summable())
+                if (!window.Ready())
                 {
                     continue;
                 }
 
                 var sum = window.Sum();
-                if (sums.Count > 0)
+                if (Sums.Count > 0)
                 {
-                    increased += sums[^1] < sum ? 1 : 0;
+                    increased += Sums[^1] < sum ? 1 : 0;
                 }
-                sums.Add(sum);
+                Sums.Add(sum);
             }
 
             Console.WriteLine($"{increased} number of depth increases");
