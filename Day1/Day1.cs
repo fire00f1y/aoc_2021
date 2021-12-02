@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Day1
+namespace Advent
 {
-    internal static class Program
+    internal static class Day1
     {
         private static readonly List<int> Sums = new List<int>();
 

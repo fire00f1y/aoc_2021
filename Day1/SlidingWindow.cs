@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Day1
+namespace Advent
 {
     public class SlidingWindow
     {
