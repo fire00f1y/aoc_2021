@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using Common;
 
 namespace Advent
 {
@@ -10,20 +10,17 @@ namespace Advent
 
         private static void Main(string[] args)
         {
-            var reader = new StreamReader(File.OpenRead("input.txt"));
             var increased = 0;
 
             var window = new SlidingWindow(3);
-            while (!reader.EndOfStream)
+            ReadUtil.ReadAndProcessInput(line =>
             {
-                // Assuming no input is malformed
-                var line = reader.ReadLine();
                 var num = Convert.ToInt32(line);
                 window.Add(num);
 
                 if (!window.Ready())
                 {
-                    continue;
+                    return;
                 }
 
                 var sum = window.Sum();
@@ -31,8 +28,9 @@ namespace Advent
                 {
                     increased += Sums[^1] < sum ? 1 : 0;
                 }
+
                 Sums.Add(sum);
-            }
+            });
 
             Console.WriteLine($"{increased} number of depth increases");
         }
