@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Common;
 using Microsoft.VisualBasic;
@@ -12,46 +13,48 @@ namespace Advent
             List<string> bytes = new List<string>();
             ReadUtil.ReadAndProcessInput(line => { bytes.Add(line); });
 
-            int[] counts0 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-            int[] counts1 = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
-            foreach (var b in bytes)
-            {
-                for (var i = 0; i < b.Length; i++)
-                {
-                    if (b[i] == '0')
-                    {
-                        counts0[i]++;
-                    }
-                    else
-                    {
-                        counts1[i]++;
-                    }
-                }
-            }
-
             var gamma = "";
-            var epsilon = "";
+            var bitCount = bytes[0].Length;
+            var byteCount = bytes.Count;
 
-            for (var i = 0; i < counts0.Length; i++)
+            for (var i = 0; i < bitCount; i++)
             {
-                if (counts0[i] == counts1[i]) {Console.WriteLine($"{i} has equal number of 1s and 0s");}
-                if (counts0[i] > counts1[i])
+                if (SumColumn(bytes, i) > (byteCount / 2))
                 {
-                    gamma += "0";
-                    epsilon += "1";
+                    gamma += "1";
                 }
                 else
                 {
-                    gamma += "1";
-                    epsilon += "0";
+                    gamma += "0";
                 }
             }
-
+            
             var gammaValue = Convert.ToInt32(gamma, 2);
-            var epsilonValue = Convert.ToInt32(epsilon, 2);
+            var epsilonValue = Convert.ToInt32(InvertBits(gamma), 2);
 
-            Console.WriteLine($"Gamma: {gamma}, Epsilon: {epsilon}. Product: {gammaValue * epsilonValue}");
+            Console.WriteLine($"Gamma: {gamma}, Epsilon: {InvertBits(gamma)}. Product: {gammaValue * epsilonValue}");
+        }
+
+        private static int SumColumn(List<string> bytes, int col)
+        {
+            var sum = 0;
+            foreach (var b in bytes)
+            {
+                sum += b[col] == '1' ? 1 : 0;
+            }
+
+            return sum;
+        }
+
+        private static string InvertBits(string input)
+        {
+            var inverse = "";
+            for (var i = 0; i < input.Length; i++)
+            {
+                inverse += input[i] == '0' ? '1' : '0';
+            }
+
+            return inverse;
         }
     }
 }
