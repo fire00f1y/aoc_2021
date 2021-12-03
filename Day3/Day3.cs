@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Common;
 using Microsoft.VisualBasic;
 
@@ -37,13 +38,7 @@ namespace Advent
 
         private static int SumColumn(List<string> bytes, int col)
         {
-            var sum = 0;
-            foreach (var b in bytes)
-            {
-                sum += b[col] == '1' ? 1 : 0;
-            }
-
-            return sum;
+            return bytes.Sum(b => b[col] == '1' ? 1 : 0);
         }
 
         private static string InvertBits(string input)
