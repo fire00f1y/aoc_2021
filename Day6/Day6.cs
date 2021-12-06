@@ -9,30 +9,41 @@ namespace Advent
     {
         private static void Main(string[] args)
         {
-            List<int> fishies = new(); 
+            Dictionary<Int64, Int64> fishyCounts = new();
+            for (var i = 0; i <= 8; i++)
+            {
+                fishyCounts.Add(i, 0);
+            }
+            
             ReadUtil.ReadAndProcessInput(line =>
             {
-                fishies.AddRange(line.Split(",").Select(fish => Convert.ToInt32(fish)));
+                foreach (var fish in line.Split(","))
+                {
+                    fishyCounts[Convert.ToInt64(fish)]++;
+                }
             });
-
-            Console.WriteLine($"Initial state: {string.Join(",", fishies)}");
+            
             for (var day = 1; day <= 256; day++)
             {
-                for (var i = fishies.Count -1; i >= 0; i--)
-                {
-                    var cur = fishies[i];
-                    cur--;
-                    if (cur < 0)
-                    {
-                        cur = 6;
-                        fishies.Add(8);
-                    }
-
-                    fishies[i] = cur;
-                }
-                Console.WriteLine($"{day}");
+                var temp0 = fishyCounts[0];
+                fishyCounts[0] = fishyCounts[1];
+                fishyCounts[1] = fishyCounts[2];
+                fishyCounts[2] = fishyCounts[3];
+                fishyCounts[3] = fishyCounts[4];
+                fishyCounts[4] = fishyCounts[5];
+                fishyCounts[5] = fishyCounts[6];
+                fishyCounts[6] = fishyCounts[7] + temp0;
+                fishyCounts[7] = fishyCounts[8];
+                fishyCounts[8] = temp0;
             }
-            Console.WriteLine($"Finished with {fishies.Count} fish.");
+
+            Int64 total = 0;
+            foreach (var entry in fishyCounts)
+            {
+                total += entry.Value;
+            }
+            Console.WriteLine($"0: {fishyCounts[0]}, 1: {fishyCounts[1]}, 2: {fishyCounts[2]}, 3: {fishyCounts[3]}, 4: {fishyCounts[4]}, 5: {fishyCounts[5]}, 6: {fishyCounts[6]}, 7: {fishyCounts[7]}, 8: {fishyCounts[8]}, total: {total}");
+            
         }
     }
 }
