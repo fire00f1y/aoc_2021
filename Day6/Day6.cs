@@ -37,11 +37,7 @@ namespace Advent
                 fishyCounts[8] = temp0;
             }
 
-            Int64 total = 0;
-            foreach (var entry in fishyCounts)
-            {
-                total += entry.Value;
-            }
+            Int64 total = fishyCounts.Sum(entry => entry.Value);
             Console.WriteLine($"0: {fishyCounts[0]}, 1: {fishyCounts[1]}, 2: {fishyCounts[2]}, 3: {fishyCounts[3]}, 4: {fishyCounts[4]}, 5: {fishyCounts[5]}, 6: {fishyCounts[6]}, 7: {fishyCounts[7]}, 8: {fishyCounts[8]}, total: {total}");
             
         }
